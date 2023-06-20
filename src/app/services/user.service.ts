@@ -8,12 +8,11 @@ import jwtDecode from 'jwt-decode';
   providedIn: 'root'
 })
 export class UserService {
-
   
   updateUser = new BehaviorSubject<User|null>(null);
   updateUser$ = this.updateUser.asObservable();
   //afegeixo user com a objecte perquè sigui més intuïtiu i fàcil
-  //per a la funció updateNeighbours
+  //per a la funció updateNeighborhoods
   currentUser: User | null = null;
   subscUser: Subscription = this.updateUser$.subscribe(res => this.currentUser = res);
 
@@ -49,14 +48,14 @@ export class UserService {
       );
     }
   
-  updateNeighbours(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
+  updateNeighborhoods(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
-      this.currentUser!.neighbours.push(neighbourId);  //aquesta funció només es pot cridar amb user loggejat
+      this.currentUser!.neighborhoods.push(neighbourId);  //aquesta funció només es pot cridar amb user loggejat
     } else {
-      let indexToRemove: number = this.currentUser!.neighbours.indexOf(neighbourId);
-      this.currentUser!.neighbours.splice(indexToRemove); //idem
+      let indexToRemove: number = this.currentUser!.neighborhoods.indexOf(neighbourId);
+      this.currentUser!.neighborhoods.splice(indexToRemove); //idem
     }
-    this.http.post<User>("", this.currentUser!.neighbours) //idem
+    this.http.post<User>("", this.currentUser!.neighborhoods) //idem
       .subscribe(res => { this.updateUser.next(res) });
   }
 }
