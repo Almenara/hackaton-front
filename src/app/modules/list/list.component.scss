@@ -1,0 +1,9 @@
+@import "../../../vars.scss";
+
+.zone-item{
+    border: 1px solid $black;
+    border-bottom: 0;
+    &:last-child{
+        border-bottom: 1px solid $black;
+    }
+}
