@@ -38,13 +38,13 @@ export class ListComponent implements OnInit {
   }
 
   rejectNeighborhood(neighborhoodId: number) {
-    this.userService.updateNeighborhoods(neighborhoodId, 1)
+    this.userService.updateNeighborhoods(neighborhoodId, 1);
   }
 
   addNeighborhood(neighborhoodId: number) {
   //   updateNeighbours afegirà o traurà zona de user.neighbours segons si l'últim valor és 0 o 1 
   //   i després actualitzarà amb post
-        this.userService.updateNeighborhoods(neighborhoodId, 0)
+    this.userService.updateNeighborhoods(neighborhoodId, 0);
   }
 
   ngOnInit() {
