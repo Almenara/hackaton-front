@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from './services/user.service';
 
 
 @Component({
@@ -9,7 +10,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
 
+  constructor(private userService: UserService){}
+
   title = 'hackaton-front';
 
+  ngOnInit() {
+    this.userService.getLocalStorageUser();
+  }
 
 }

@@ -31,6 +31,10 @@ export class ListComponent implements OnInit {
     this.neighborhoodsList$ = this.listService.getNeighborhoodsList();
   }
 
+  logout() {
+    this.userService.logout();
+  }
+
   rejectNeighborhood(neighborhoodId: number) {
     this.userService.updateNeighborhoods(neighborhoodId, 1)
   }
