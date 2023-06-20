@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { ListModule } from './modules/list/list.module';
-import { MainService } from './services/main.service';
 import { CoreModule } from './core/core.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/log/login/login.component';
 import { RegisterComponent } from './modules/log/register/register.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MapService } from './services/map.service';
 import { PopupService } from './services/popup.service';
 
+
+import { MainService } from './services/main.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { PopupService } from './services/popup.service';
     AppRoutingModule,
     ListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     MainService,

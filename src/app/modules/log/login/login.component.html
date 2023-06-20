@@ -2,18 +2,18 @@
 <section class="mb-5 mt-5">
 <div class="login">
   <h2 class="text-center pb-4">Login</h2>
-  <form class="custom-form d-flex flex-column" method="post">
+  <form [formGroup]="loginForm" class="custom-form d-flex flex-column" method="post">
     <input
       type="email"
-      [(ngModel)]="email"
       name="email"
+      formControlName="email"
       placeholder="Email"
       required="required"
     />
     <input
       type="password"
-      [(ngModel)]="password"
       name="password"
+      formControlName="password"
       placeholder="Password"
       required="required"
     />
