@@ -1,4 +1,4 @@
-export interface Neighbour {
+export interface Neighborhood {
     name: string,
     points: number,
     id: number,
@@ -9,8 +9,8 @@ export interface Neighbour {
 export interface User {
     name: string,
     surname: string, 
-    email: string;
-    neighbours: number[],
+    email: string,
+    neighborhoods: number[],
     id: number,
     points: number
 }

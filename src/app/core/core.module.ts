@@ -4,6 +4,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { MainComponent } from './layout/main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { RouterModule } from '@angular/router';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     RouterModule,
-    CommonModule
+    CommonModule,
+    NgChartsModule
   ],
   exports: [
     HeaderComponent,
