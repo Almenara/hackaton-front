@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListModule } from './modules/list/list.module';
 import { MainService } from './services/main.service';
+import { CoreModule } from './core/core.module';
 import { LoginComponent } from './modules/log/login/login.component';
 import { RegisterComponent } from './modules/log/register/register.component';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
     ListModule,
