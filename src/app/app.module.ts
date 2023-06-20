@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/log/login/login.component';
 import { RegisterComponent } from './modules/log/register/register.component';
+import { MapService } from './services/map.service';
+import { PopupService } from './services/popup.service';
+
 
 import { MainService } from './services/main.service';
 
@@ -17,7 +20,7 @@ import { MainService } from './services/main.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CoreModule,
@@ -30,7 +33,9 @@ import { MainService } from './services/main.service';
     HttpClientModule
   ],
   providers: [
-    MainService
+    MainService,
+    MapService,
+    PopupService
   ],
   bootstrap: [AppComponent]
 })

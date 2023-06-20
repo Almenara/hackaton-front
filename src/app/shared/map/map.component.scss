@@ -1,0 +1,24 @@
+
+.mapDiv{
+    height: 200px;
+  }
+  .map-container {
+    height: 300px;
+    width: 50%;
+    margin: 30px;
+    }
+  .map-frame {
+    border: 3px solid #36363C;
+    border-radius: 3px;
+    height: 70%;
+    width: 100%;
+  }
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+  .leaflet-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    }
