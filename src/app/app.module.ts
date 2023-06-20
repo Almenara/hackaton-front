@@ -8,7 +8,7 @@ import { MainService } from './services/main.service';
 import { CoreModule } from './core/core.module';
 import { LoginComponent } from './modules/log/login/login.component';
 import { RegisterComponent } from './modules/log/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ListModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     MainService
