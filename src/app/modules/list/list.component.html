@@ -1,0 +1,17 @@
+<div class="container bg-primary">
+  <div class="row">
+    <ng-container *ngFor="let zone of zonesList$|async">
+        <div class="card bg-secondary">
+            <div>Nome: {{zone.name}}</div>
+            <div>Punts per hora: {{zone.points}}</div>
+            <ng-container *ngIf="(user$|async) as user">
+            <button *ngIf="user.zones.includes(zone.id); else button2">Zona seleccionada</button>
+            <ng-template #button2>
+            <button>Afegeix la zona</button>
+            </ng-template>
+            </ng-container>
+        </div>
+    </ng-container>
+  </div>
+</div>
+
