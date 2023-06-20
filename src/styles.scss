@@ -15,7 +15,7 @@ html{
         content: "";
         display: block;
         border: 1px solid $black;
-        background: linear-gradient(0deg,$black 50%, $beige 50%);
+        background: $beige;
         height: 100vh;
         width: 100vw;
         position: fixed;
