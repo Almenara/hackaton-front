@@ -6,20 +6,20 @@
     <h2 class="text-center pb-4">Barris de Barcelona</h2>
     <div class="d-flex justify-content-center">
       <div class="w-100 mb-5">
-        <ng-container *ngFor="let neighborhood of neighborhoodsList$ | async">
+        <ng-container *ngFor="let neighborhood of neighborhoodsList">
           <div class="zone-item p-4 d-flex justify-content-between">
             <div class="left">
-              <div>NOM: {{ neighborhood.name | uppercase }}</div>
-              <div>Punts: {{ neighborhood.points }}</div>
+              <div>NOM: {{ neighborhood['districtName'] | uppercase }}</div>
+              <div>Punts: {{ neighborhood['totalScore'] }}</div>
             </div>
             <ng-container *ngIf="(user$ | async) as user">
             <div class="right d-sm-flex d-none">
-              <button *ngIf="user.neighborhoods.includes(neighborhood.id); else button2" class="btn btn-primary">
-                <!--(click)=afegir "rejectNeighborhood(neighborhood.id)"-->
+              <button *ngIf="user.neighborhoods.includes(neighborhood['_id']); else button2" class="btn btn-primary">
+                <!--(click)=afegir "rejectNeighborhood(neighborhood._id)"-->
                 Zona seleccionada
               </button>
               <ng-template #button2>
-                <!--afegir (click)="addNnighborhood(neighborhood.id)"-->
+                <!--afegir (click)="addNnighborhood(neighborhood._id)"-->
                 <button class="btn btn-secondary">Afegeix la zona</button>
               </ng-template>
             </div>

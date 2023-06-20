@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { of, Observable, switchMap, map } from 'rxjs';
 
 import { Neighborhood } from '../models/interfaces';
 
@@ -12,17 +12,23 @@ export class ListService {
   
   constructor(private http: HttpClient) { }
 
-  getNeighborhoodsList(): Observable<Neighborhood[]>{
+  getNeighborhoodsList(): Observable<any>{
     // return this.http.get('');
-    return of([
-      { name: 'Nou Barris', points: 15, id: 0, x: 0, y: 0 },
-      { name: 'Les Corts', points: 5, id: 1, x: 0, y: 0 },
-      { name: 'Sants', points: 10, id: 2, x: 0, y: 0 },
-      { name: 'Sants', points: 10, id: 2, x: 0, y: 0 },
-      { name: 'Sants', points: 10, id: 2, x: 0, y: 0 },
-      { name: 'Sants', points: 10, id: 2, x: 0, y: 0 },
-      { name: 'Sants', points: 10, id: 2, x: 0, y: 0 },
-    ]);
+    return this.http.get('https://teamxiii-tech4good-production.up.railway.app/api/stats/all-hoods');
+    
+  
   }
+
+  eliminaDuplicats(array:any) {
+    const codis = new Set();
+    return array.filter((obj:any) => {
+        if (!codis.has(obj.neighborhoodCode)) {
+            codis.add(obj.neighborhoodCode);
+            return true;
+        }
+        return false;
+    });
+}
+
 
 }

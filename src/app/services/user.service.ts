@@ -38,7 +38,7 @@ export class UserService {
             id: res.user.uid,
             points: res.user.points
           }
-          this.updateUser.next(res.newUser);
+          this.updateUser.next(newUser);
           localStorage.setItem('user-local', JSON.stringify(res.user));
           this.router.navigate(['/list']);
         })
@@ -65,7 +65,7 @@ export class UserService {
             id: res.userCreated.uid,
             points: res.userCreated.points
           }
-          this.updateUser.next(res.newUser);
+          this.updateUser.next(newUser);
           this.router.navigate(['/list']);
           
         })
@@ -85,6 +85,8 @@ export class UserService {
       console.log("Hi ha user a localstorage:" + localUser);
       this.updateUser.next(localUser);
       this.router.navigate(['/list']);
+    } else {
+      console.log("no hi ha user a localstorage");
     }
   }
   
