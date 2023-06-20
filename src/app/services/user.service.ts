@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subscription, tap} from 'rxjs';
 import { User } from '../models/interfaces';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,33 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-   login(user: any): Observable<any> {
-    return this.http.post<User>("", user).pipe(tap(res=>{this.updateUser.next(res)}));
-   }
+    login(user: any): Observable<any> {
+      const URLService = "http://localhost:8080/api/auth/login";
+      const body = user; 
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      return this.http.post<any>(URLService, body, {headers}).pipe(
+        tap(res=>{
+          this.updateUser.next(res)
+          localStorage.setItem('auth_token', res.token);
+        })
+        );
+    }
 
-   register(user: any): Observable<any> {
-    return this.http.post("", user);
-  }
+    register(user: any): Observable<any> {
+      
+      const URLService = "http://localhost:8080/api/auth/register";
+      const body = user; 
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      return this.http.post<any>(URLService, user, {headers}).pipe(
+        tap(res=>{
+          localStorage.setItem('auth_token', res.token);
+        })
+      );
+    }
   
   updateNeighborhoods(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
