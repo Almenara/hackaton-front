@@ -5,7 +5,6 @@ import { ListModule } from './modules/list/list.module';
 import { CoreModule } from './core/core.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -28,7 +27,6 @@ import { MainService } from './services/main.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgxChartsModule,
     HttpClientModule
   ],
   providers: [
