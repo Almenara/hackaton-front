@@ -21,7 +21,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
     login(user: any): Observable<any> {
-      const URLService = "http://localhost:8080/api/auth/login";
+      const URLService = "https://teamxiii-tech4good-production.up.railway.app/api/auth/login";
       const body = user; 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export class UserService {
 
     register(user: any): Observable<any> {
       
-      const URLService = "http://localhost:8080/api/auth/register";
+      const URLService = "https://teamxiii-tech4good-production.up.railway.app/api/auth/register";
       const body = user; 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
