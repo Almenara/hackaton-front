@@ -12,7 +12,7 @@ export class UserService {
   updateUser = new BehaviorSubject<User|null>(null);
   updateUser$ = this.updateUser.asObservable();
   //afegeixo user com a objecte perquè sigui més intuïtiu i fàcil
-  //per a la funció updateZones
+  //per a la funció updateNeighbours
   currentUser: User | null = null;
   subscUser: Subscription = this.updateUser$.subscribe(res => this.currentUser = res);
 
@@ -28,14 +28,14 @@ export class UserService {
     return this.http.post("", user);
   }
   
-  updateZones(zoneId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
+  updateNeighbours(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
-      this.currentUser!.zones.push(zoneId);  //aquesta funció només es pot cridar amb user loggejat
+      this.currentUser!.neighbours.push(neighbourId);  //aquesta funció només es pot cridar amb user loggejat
     } else {
-      let indexToRemove: number = this.currentUser!.zones.indexOf(zoneId);
-      this.currentUser!.zones.splice(indexToRemove); //idem
+      let indexToRemove: number = this.currentUser!.neighbours.indexOf(neighbourId);
+      this.currentUser!.neighbours.splice(indexToRemove); //idem
     }
-    this.http.post<User>("", this.currentUser!.zones) //idem
+    this.http.post<User>("", this.currentUser!.neighbours) //idem
       .subscribe(res => { this.updateUser.next(res) });
   }
 }
