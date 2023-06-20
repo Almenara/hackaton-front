@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 
-import { Zone } from '../models/interfaces';
+import { Neighbour } from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class ListService {
   
   constructor(private http: HttpClient) { }
 
-  getZonesList(): Observable<Zone[]>{
+  getNeighboursList(): Observable<Neighbour[]>{
     // return this.http.get('');
     return of([
       { name: 'Nou Barris', points: 15, id: 0, x: 0, y: 0 },

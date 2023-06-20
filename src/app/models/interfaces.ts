@@ -1,4 +1,4 @@
-export interface Zone {
+export interface Neighbour {
     name: string,
     points: number,
     id: number,
@@ -10,7 +10,7 @@ export interface User {
     name: string,
     surname: string, 
     email: string;
-    zones: number[],
+    neighbours: number[],
     id: number,
     points: number
 }
