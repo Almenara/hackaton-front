@@ -7,6 +7,15 @@
     background-color: $beige;
     width: 100%;
     min-height: 10px;
+    #logo{
+        margin-top: 3px;
+        margin-left: 10px;
+        font-size: 60px;
+        max-height: 50px;
+        line-height: 47px;
+        height: auto;
+        font-family: 'Rozha One', serif;
+    }
     nav{
         z-index: 999;
         display: flex;
