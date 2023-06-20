@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/interfaces';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,11 @@ import { User } from 'src/app/models/interfaces';
 })
 export class HeaderComponent {
 
-  // constructor() {
-  //   currentUser$
-  // }
+  user = new BehaviorSubject<User|null>(null);
+  updateUser$ = this.user.asObservable();
 
+  constructor(private userService: UserService) {
+    }
   // currentUser$: Observable<User>;
 
   toggleMenu(event: Event) {
@@ -25,6 +27,6 @@ export class HeaderComponent {
   }
 
   logOut(){
-    
+    this.userService.logout();
   }
 }
