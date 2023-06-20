@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ListComponent implements OnInit {
 
-  neighborhoodsList$: Observable<Neighborhood[]|null>;
+  neighborhoodsList: any[] | null = [];
   user$: Observable<User | null>;
   
   updateUser = new BehaviorSubject<User|null>(null);
@@ -28,7 +28,9 @@ export class ListComponent implements OnInit {
     this.user$ = this.userService.updateUser$;
     // this.user$ = of({ name: 'Jaume', surname: 'Miret', email: 'jaume@a.com', neighborhoods: [1], id: 1, points: 5 });
     //Neighbours list-array that will be shown in template
-    this.neighborhoodsList$ = this.listService.getNeighborhoodsList();
+    this.listService.getNeighborhoodsList().subscribe(res => {
+      this.neighborhoodsList = res.hoods;
+    })
   }
 
   logout() {
