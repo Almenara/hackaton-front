@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,6 +13,13 @@ export class RegisterComponent {
   confirmPassword!: string;
   passwordError!: boolean;
 
+  
+  registerForm = new FormGroup ({
+    email: new FormControl ('', [Validators.required, Validators.email]),
+    password: new FormControl ('', [Validators.required, Validators.minLength(8)])
+  })
+
+
   constructor(public userService: UserService) {}
 
   register() {
@@ -20,8 +28,5 @@ export class RegisterComponent {
     this.userService.register(user).subscribe((data) => {
       console.log(data);
     })
-
-    console.log(this.email);
-    console.log(this.password);
   }
 }
