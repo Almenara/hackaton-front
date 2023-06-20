@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subscription, tap} from 'rxjs';
 import { User } from '../models/interfaces';
 import jwtDecode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService {
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
     login(user: any): Observable<any> {
       const URLService = "https://teamxiii-tech4good-production.up.railway.app/api/auth/login";
@@ -27,9 +28,19 @@ export class UserService {
         'Content-Type': 'application/json',
       });
       return this.http.post<any>(URLService, body, {headers}).pipe(
-        tap(res=>{
-          this.updateUser.next(res)
-          localStorage.setItem('auth_token', res.token);
+        tap(res => {
+          //update new user (=log in)
+          const newUser: User = {
+            name: res.user.name,
+            surname: res.user.surName, 
+            email: res.user.email,
+            neighborhoods: res.user.neighborhood,
+            id: res.user.uid,
+            points: res.user.points
+          }
+          this.updateUser.next(res.newUser);
+          localStorage.setItem('user-local', JSON.stringify(res.user));
+          this.router.navigate(['/list']);
         })
         );
     }
@@ -42,11 +53,40 @@ export class UserService {
         'Content-Type': 'application/json',
       });
       return this.http.post<any>(URLService, user, {headers}).pipe(
-        tap(res=>{
-          localStorage.setItem('auth_token', res.token);
+        tap(res => {
+          console.log(res);
+          localStorage.setItem('user-local', JSON.stringify(res.user));
+          //update new user (=log in)
+            const newUser: User = {
+            name: res.userCreated.name,
+            surname: res.userCreated.surName, 
+            email: res.userCreated.email,
+            neighborhoods: res.userCreated.neighborhood,
+            id: res.userCreated.uid,
+            points: res.userCreated.points
+          }
+          this.updateUser.next(res.newUser);
+          this.router.navigate(['/list']);
+          
         })
       );
+  }
+  
+  logout() {
+    this.updateUser.next(null);
+    localStorage.removeItem('user-local');
+    this.router.navigate(['login']);
+    console.log("logout");
+  }
+
+  getLocalStorageUser() {
+    if (!this.currentUser && localStorage.getItem("user-local") != undefined) {
+      const localUser = JSON.parse(localStorage.getItem('user-local')!);
+      console.log("Hi ha user a localstorage:" + localUser);
+      this.updateUser.next(localUser);
+      this.router.navigate(['/list']);
     }
+  }
   
   updateNeighborhoods(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
