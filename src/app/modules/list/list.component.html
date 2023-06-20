@@ -1,12 +1,12 @@
 
-  <div class="container-fluid bg-primary p-3 p-md-4 p-lg-5">
+
     <!--ZONES LIST-->
-    <section>
-    <h2 class="text-center">Barris de Barcelona</h2>
+    <section class="mb-5 mt-5">
+    <h2 class="text-center pb-4">Barris de Barcelona</h2>
     <div class="row justify-content-center">
-      <div class="col-6">
+      <div class="col-12 mb-5">
         <ng-container *ngFor="let zone of zonesList$ | async">
-          <div class="zone-item bg-secondary p-3 m-3 d-flex justify-content-around">
+          <div class="zone-item p-4 d-flex justify-content-between">
             <div class="left">
               <div>NOM: {{ zone.name | uppercase }}</div>
               <div>Punts: {{ zone.points }}</div>
@@ -28,6 +28,4 @@
       </div>
     </div>
     </section>
-  </div>
-
 <!--BENEFITS SECTION-->
