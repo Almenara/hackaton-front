@@ -1,0 +1,35 @@
+@import '../../../../vars';
+
+footer{
+    background-color: $black;
+    color: $beige;
+    padding: 50px 20px 30px;
+    #footer-logo{
+        max-width: 215px;
+        min-width: 150px;
+        margin-right: 30px;
+        margin-bottom: 10px;
+    }
+    h3{
+        font-family: "Inconsolata", sans-serif;
+        text-transform: uppercase;
+        margin-top: 50px;
+    }
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-top: 20px;
+        li{
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+            a{
+                color:$beige;
+                &::before{
+                    background-color: $violet;
+                }
+            }
+        }
+    }
+}
