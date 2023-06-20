@@ -1,17 +1,33 @@
-<div class="container bg-primary">
-  <div class="row">
-    <ng-container *ngFor="let zone of zonesList$|async">
-        <div class="card bg-secondary">
-            <div>Nome: {{zone.name}}</div>
-            <div>Punts per hora: {{zone.points}}</div>
-            <ng-container *ngIf="(user$|async) as user">
-            <button *ngIf="user.zones.includes(zone.id); else button2">Zona seleccionada</button>
-            <ng-template #button2>
-            <button>Afegeix la zona</button>
-            </ng-template>
-            </ng-container>
-        </div>
-    </ng-container>
-  </div>
-</div>
 
+  <div class="container-fluid bg-primary p-3 p-md-4 p-lg-5">
+    <!--ZONES LIST-->
+    <section>
+    <h2 class="text-center">Barris de Barcelona</h2>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <ng-container *ngFor="let zone of zonesList$ | async">
+          <div class="zone-item bg-secondary p-3 m-3 d-flex justify-content-around">
+            <div class="left">
+              <div>NOM: {{ zone.name | uppercase }}</div>
+              <div>Punts: {{ zone.points }}</div>
+            </div>
+            <ng-container *ngIf="(user$ | async) as user">
+            <div class="right d-sm-flex d-none">
+              <button *ngIf="user.zones.includes(zone.id); else button2" class="btn btn-primary">
+                <!--(click)=afegir "rejectZone(zone.id)"-->
+                Zona seleccionada
+              </button>
+              <ng-template #button2>
+                <!--afegir (click)="addZone(zone.id)"-->
+                <button class="btn btn-secondary">Afegeix la zona</button>
+              </ng-template>
+            </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    </section>
+  </div>
+
+<!--BENEFITS SECTION-->
