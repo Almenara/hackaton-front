@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,25 +8,35 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  email!: string;
-  password!: string;
-  confirmPassword!: string;
-  passwordError!: boolean;
+  
 
   
-  registerForm = new FormGroup ({
-    email: new FormControl ('', [Validators.required, Validators.email]),
-    password: new FormControl ('', [Validators.required, Validators.minLength(8)])
+  public registerForm: FormGroup = this.fb.group({
+    name:           ['Peter',           [Validators.required]],
+    surName:        ['Parker',          [Validators.required]],
+    email:          ['seed1@test.com',  [Validators.required, Validators.email]],
+    password:       ['123456',          [Validators.required, Validators.minLength(6)]],
+    confirmPassword:['123456',          [Validators.required, Validators.minLength(6)]],
   })
 
 
-  constructor(public userService: UserService) {}
+  constructor(
+    private fb: FormBuilder, 
+    public userService: UserService
+    ) {}
 
   register() {
 
-    const user = { email: this.email, password: this.password };
+    const user = { 
+      name: this.registerForm.value.name, 
+      surName: this.registerForm.value.surName,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      neighborhood: [],
+      confirmPassword: this.registerForm.value.password 
+    };
     this.userService.register(user).subscribe((data) => {
-      console.log(data);
+      
     })
   }
 }
