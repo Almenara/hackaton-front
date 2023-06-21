@@ -44,10 +44,6 @@ export class ListComponent implements OnInit {
     return this.user!.neighborhoods.includes(nbCode.toString());
   }
 
-  logout() {
-    this.userService.logout();
-  }
-
   rejectNeighborhood(neighborhoodId: number, points: number) {
     this.userService.updateNeighborhoods(neighborhoodId, points, 1);
   }
