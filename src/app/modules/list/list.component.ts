@@ -33,7 +33,10 @@ export class ListComponent implements OnInit {
     // this.user$ = of({ name: 'Jaume', surname: 'Miret', email: 'jaume@a.com', neighborhoods: [1], id: 1, points: 5 });
     //Neighbours list-array that will be shown in template
     this.listService.getNeighborhoodsList().subscribe(res => {
-      this.neighborhoodsList = res.hoods;
+      this.neighborhoodsList = res.hoods
+      this.neighborhoodsList?.map((hood: any) =>{
+          return hood.totalScore = 50 - Math.round(hood.totalScore);
+      })
     })
   }
 
@@ -45,14 +48,14 @@ export class ListComponent implements OnInit {
     this.userService.logout();
   }
 
-  rejectNeighborhood(neighborhoodId: number) {
-    this.userService.updateNeighborhoods(neighborhoodId, 1);
+  rejectNeighborhood(neighborhoodId: number, points: number) {
+    this.userService.updateNeighborhoods(neighborhoodId, points, 1);
   }
 
-  addNeighborhood(neighborhoodId: number) {
+  addNeighborhood(neighborhoodId: number, points: number) {
   //   updateNeighbours afegirà o traurà zona de user.neighbours segons si l'últim valor és 0 o 1 
   //   i després actualitzarà amb post
-    this.userService.updateNeighborhoods(neighborhoodId, 0);
+    this.userService.updateNeighborhoods(neighborhoodId, points, 0);
   }
 
   ngOnInit() {
