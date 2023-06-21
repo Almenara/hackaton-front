@@ -10,10 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent {
 
-  user = new BehaviorSubject<User|null>(null);
-  updateUser$ = this.user.asObservable();
+  user: any;
 
   constructor(private userService: UserService) {
+    this.userService.updateUser$.subscribe(res => {
+      this.user = res;
+    })
     }
   // currentUser$: Observable<User>;
 
