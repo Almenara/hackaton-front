@@ -12,8 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ListComponent implements OnInit {
 
+  updateNeighborhoodsList = new BehaviorSubject<any[] | null>([]);
+  updateNeighborhoodsList$ = this.updateNeighborhoodsList.asObservable();
   neighborhoodsList: any[] | null = [];
   user$: Observable<User | null>;
+  user;
   
   updateUser = new BehaviorSubject<User|null>(null);
   updateUser$ = this.updateUser.asObservable();
@@ -26,11 +29,16 @@ export class ListComponent implements OnInit {
     //LLAVORS TAMBÉ PODRIA SIMPLIFICAR FUNCIONS REJECTneighborhood I ADDneighborhood (TREURE EL SUBSCRIBE)
     // this.user$ = this.updateUser$.pipe(switchMap(() => this.userService.updateUser$); o this.userService.user$
     this.user$ = this.userService.updateUser$;
+    this.user = this.userService.currentUser;
     // this.user$ = of({ name: 'Jaume', surname: 'Miret', email: 'jaume@a.com', neighborhoods: [1], id: 1, points: 5 });
     //Neighbours list-array that will be shown in template
     this.listService.getNeighborhoodsList().subscribe(res => {
       this.neighborhoodsList = res.hoods;
     })
+  }
+
+  checkNeighborhoodCode(nbCode: number) {
+    return this.user!.neighborhoods.includes(nbCode.toString());
   }
 
   logout() {

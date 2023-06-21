@@ -94,13 +94,20 @@ export class UserService {
   
   updateNeighborhoods(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
-      this.currentUser!.neighborhoods.push(neighbourId);  //aquesta funció només es pot cridar amb user loggejat
+      this.currentUser!.neighborhoods.push(neighbourId.toString());  //aquesta funció només es pot cridar amb user loggejat
     } else {
-      let indexToRemove: number = this.currentUser!.neighborhoods.indexOf(neighbourId);
-      this.currentUser!.neighborhoods.splice(indexToRemove); //idem
+      let indexToRemove: number = this.currentUser!.neighborhoods.indexOf(neighbourId.toString());
+      this.currentUser!.neighborhoods.splice(indexToRemove, 1); //idem
     }
+    console.log("neighborhoods de user és: " + this.currentUser?.neighborhoods);
+    //versió d'array amb números
+    const nbArray = this.currentUser?.neighborhoods.map(Number);
     this.http.post<any>("https://teamxiii-tech4good-production.up.railway.app/api/users/update/" + this.currentUser!.id,
-      { user: { neighborhood: this.currentUser!.neighborhoods } }) //idem
-      .subscribe(res => { this.updateUser.next(res['user']) });
+      { "user": { "neighborhood": this.currentUser?.neighborhoods } }) //idem
+      .subscribe(res => {
+        console.log(res.user);
+        this.currentUser!.neighborhoods = res['user']['neighborhood'];
+        this.updateUser.next(this.currentUser);
+      });
   }
 }
