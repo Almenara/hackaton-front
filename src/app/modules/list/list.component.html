@@ -14,12 +14,12 @@
             </div>
             <ng-container *ngIf="(user$ | async) as user">
             <div class="right d-sm-flex d-none">
-              <button *ngIf="checkNeighborhoodCode(neighborhood['neighborhoodCode']); else button2" (click)="rejectNeighborhood(neighborhood['neighborhoodCode'])"
-              class="btn btn-primary">
+              <button *ngIf="checkNeighborhoodCode(neighborhood['neighborhoodCode']); else button2" (click)="rejectNeighborhood(neighborhood['neighborhoodCode'], neighborhood['totalScore'])"
+              class="btn checked check-btn btn-primary">
                 Zona seleccionada
               </button>
               <ng-template #button2>
-                <button class="btn btn-secondary" (click)="addNeighborhood(neighborhood['neighborhoodCode'])">Afegeix la zona</button>
+                <button class="btn check-btn" (click)="addNeighborhood(neighborhood['neighborhoodCode'], neighborhood['totalScore'])">Afegeix la zona</button>
               </ng-template>
             </div>
             </ng-container>
