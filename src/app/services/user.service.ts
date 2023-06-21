@@ -92,10 +92,12 @@ export class UserService {
     }
   }
   
-  updateNeighborhoods(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
+  updateNeighborhoods(neighbourId: number, points: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
+      this.currentUser!.points = this.currentUser!.points + points
       this.currentUser!.neighborhoods.push(neighbourId.toString());  //aquesta funció només es pot cridar amb user loggejat
     } else {
+      this.currentUser!.points = this.currentUser!.points - points
       let indexToRemove: number = this.currentUser!.neighborhoods.indexOf(neighbourId.toString());
       this.currentUser!.neighborhoods.splice(indexToRemove, 1); //idem
     }
@@ -103,11 +105,12 @@ export class UserService {
     //versió d'array amb números
     const nbArray = this.currentUser?.neighborhoods.map(Number);
     this.http.post<any>("https://teamxiii-tech4good-production.up.railway.app/api/users/update/" + this.currentUser!.id,
-      { "user": { "neighborhood": this.currentUser?.neighborhoods } }) //idem
+      { "neighborhood": this.currentUser?.neighborhoods, 'points': this.currentUser?.points }) //idem
       .subscribe(res => {
         console.log(res.user);
         this.currentUser!.neighborhoods = res['user']['neighborhood'];
         this.updateUser.next(this.currentUser);
       });
   }
+
 }
