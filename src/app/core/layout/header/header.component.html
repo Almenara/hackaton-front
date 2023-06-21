@@ -7,11 +7,13 @@
             <span></span>
         </div-->
         <div class="d-flex">
+            <!-- <ng-container *ngIf="true || (user$|async) as user"> -->
             <a [routerLink]="['/']" class="d-flex header-btn white-btn" >Info</a>
             <a [routerLink]="['/list']" class="d-flex header-btn white-btn">List</a>
-            <a [routerLink]="['/login']" class="d-flex header-btn black-btn">Log In</a>
-            <a (click)="logOut()" class="d-flex header-btn black-btn">Log Out</a>
-            <a [routerLink]="['/register']" class="d-flex header-btn black-btn">Sign Up</a>
+            <a [routerLink]="['/login']" class="d-flex header-btn black-btn" *ngIf="!user">Log In</a>
+            <a (click)="logOut()" class="d-flex header-btn black-btn" *ngIf="user">Log Out</a>
+            <a [routerLink]="['/register']" class="d-flex header-btn black-btn" *ngIf="!user">Sign Up</a>
+            <!-- </ng-container> -->
         </div>
       
         <!--nav id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
