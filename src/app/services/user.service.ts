@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subscription, tap} from 'rxjs';
-import { User } from '../models/interfaces';
+import { User, Neighborhood } from '../models/interfaces';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,8 @@ export class UserService {
   
   updateUser = new BehaviorSubject<User|null>(null);
   updateUser$ = this.updateUser.asObservable();
+
+  
   //afegeixo user com a objecte perquè sigui més intuïtiu i fàcil
   //per a la funció updateNeighborhoods
   currentUser: User | null = null;
@@ -39,7 +41,7 @@ export class UserService {
             points: res.user.points
           }
           this.updateUser.next(newUser);
-          localStorage.setItem('user-local', JSON.stringify(res.user));
+          localStorage.setItem('user-local', JSON.stringify(newUser));
           this.router.navigate(['/list']);
         })
         );
@@ -55,7 +57,6 @@ export class UserService {
       return this.http.post<any>(URLService, user, {headers}).pipe(
         tap(res => {
           console.log(res);
-          localStorage.setItem('user-local', JSON.stringify(res.user));
           //update new user (=log in)
             const newUser: User = {
             name: res.userCreated.name,
@@ -65,6 +66,7 @@ export class UserService {
             id: res.userCreated.uid,
             points: res.userCreated.points
           }
+          localStorage.setItem('user-local', JSON.stringify(newUser));
           this.updateUser.next(newUser);
           this.router.navigate(['/list']);
           
@@ -92,12 +94,20 @@ export class UserService {
   
   updateNeighborhoods(neighbourId: number, addOrReject: 0 | 1) { //0 to add, 1 to reject
     if (addOrReject == 0) {
-      this.currentUser!.neighborhoods.push(neighbourId);  //aquesta funció només es pot cridar amb user loggejat
+      this.currentUser!.neighborhoods.push(neighbourId.toString());  //aquesta funció només es pot cridar amb user loggejat
     } else {
-      let indexToRemove: number = this.currentUser!.neighborhoods.indexOf(neighbourId);
-      this.currentUser!.neighborhoods.splice(indexToRemove); //idem
+      let indexToRemove: number = this.currentUser!.neighborhoods.indexOf(neighbourId.toString());
+      this.currentUser!.neighborhoods.splice(indexToRemove, 1); //idem
     }
-    this.http.post<User>("", this.currentUser!.neighborhoods) //idem
-      .subscribe(res => { this.updateUser.next(res) });
+    console.log("neighborhoods de user és: " + this.currentUser?.neighborhoods);
+    //versió d'array amb números
+    const nbArray = this.currentUser?.neighborhoods.map(Number);
+    this.http.post<any>("https://teamxiii-tech4good-production.up.railway.app/api/users/update/" + this.currentUser!.id,
+      { "user": { "neighborhood": this.currentUser?.neighborhoods } }) //idem
+      .subscribe(res => {
+        console.log(res.user);
+        this.currentUser!.neighborhoods = res['user']['neighborhood'];
+        this.updateUser.next(this.currentUser);
+      });
   }
 }
